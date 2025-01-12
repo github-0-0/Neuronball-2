@@ -1,1 +1,1 @@
-A clone of neuronball (for now)
+Not yet a clone of neuronball (for now)
