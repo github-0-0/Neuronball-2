@@ -28,7 +28,7 @@ def increment_card_count(cardId):
 def create_team():
     data = request.get_json()
     teamId = db.session.query(Team).count()
-    item = Team.query.filter_by(id={teamId}).first()
+    item = Team.query.filter_by(id=teamId).first()
     if item:
         return None
     else:
@@ -36,10 +36,11 @@ def create_team():
         for i in range(5):
             neuronId = db.session.query(Neuron).count()
             neuronIdList.append(neuronId)
-            db.session.add(Neuron(id=neuronId,name="Joe",type=0,acc=15,spd=15,str=15,bat=0,ia=0,cpu=0,price=None,onMarket=False))
-        item = Team(id=teamId,name=data.name,nwl=800,xp=0,neuron_list=neuronIdList,game_list=[])
+            db.session.add(Neuron(id=neuronId,name="Joe",type=0,acc=15,spd=15,str=15,cap=1.00,hp=1.00,bat=0,ia=0,cpu=0,price=None,onMarket=False))
+        item = Team(id=teamId,name=data['name'],nwl=800,xp=0,neuron_list=neuronIdList,game_list=[])
         db.session.add(item)
     db.session.commit()
+    return jsonify(item.__repr__())
     
 if __name__ == "__main__":
     app.run(debug=True)

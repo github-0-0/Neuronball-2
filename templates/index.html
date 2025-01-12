@@ -98,7 +98,7 @@
         <div class="card" data-id="2">
             <h3>Card 2</h3>
             <p>Current value: <span id="count-2">0</span></p>
-            <button onclick="incrementCount(2)">Increase</button>
+            <button onclick="createTeam('Joe')">Increase</button>
         </div>
         <!-- Add more cards as necessary -->
     </div>
@@ -114,6 +114,22 @@
             .then(response => response.json())
             .then(data => {
                 document.getElementById(`count-${cardId}`).textContent = data.new_value;
+            })
+            .catch(err => console.error('Error:', err));
+        }
+        function createTeam(name) {
+            fetch(`/create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById(`count-${2}`).textContent = data;
             })
             .catch(err => console.error('Error:', err));
         }

@@ -16,6 +16,8 @@ class Neuron(db.Model):
     acc = db.Column(db.Integer)
     spd = db.Column(db.Integer)
     str = db.Column(db.Integer)
+    cap = db.Column(db.Float)
+    hp = db.Column(db.Float)
     bat = db.Column(db.Integer)
     ia = db.Column(db.Integer)
     cpu = db.Column(db.Integer)
@@ -30,6 +32,8 @@ class Team(db.Model):
     xp = db.Column(db.Integer)
     neuron_list = db.Column(db.JSON, nullable=False, default=list)
     game_list = db.Column(db.JSON, nullable=False, default=list)
+    def __repr__(self):
+        return (f"<Team id={self.id}, name={self.name}, nwl={self.nwl}, xp={self.xp}, neuron_list={self.neuron_list}, game_list={self.game_list}")
 class HQ(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     upgrading = db.Column(db.String(100))
