@@ -1,0 +1,123 @@
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Left Navbar */
+        .navbar {
+            width: 200px;
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .navbar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 220px;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: flex-start;
+        }
+
+        /* Card Layout */
+        .card {
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: calc(33.333% - 40px);
+            min-width: 200px;
+            text-align: center;
+        }
+
+        /* Responsive for small screens */
+        @media (max-width: 768px) {
+            .card {
+                width: calc(50% - 40px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar Section -->
+    <div class="navbar">
+        <h2>Navigation</h2>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="main">
+        <div class="card" data-id="1">
+            <h3>Card 1</h3>
+            <p>Current value: <span id="count-1">0</span></p>
+            <button onclick="incrementCount(1)">Increase</button>
+        </div>
+        <div class="card" data-id="2">
+            <h3>Card 2</h3>
+            <p>Current value: <span id="count-2">0</span></p>
+            <button onclick="incrementCount(2)">Increase</button>
+        </div>
+        <!-- Add more cards as necessary -->
+    </div>
+
+    <script>
+        function incrementCount(cardId) {
+            fetch(`/increment/${cardId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById(`count-${cardId}`).textContent = data.new_value;
+            })
+            .catch(err => console.error('Error:', err));
+        }
+    </script>
+</body>
+
+</html>
