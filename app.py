@@ -23,7 +23,10 @@ def increment_card_count(cardId):
         db.session.add(item)
     db.session.commit()
     return jsonify({"new_value": item.value})
-
+@app.route('/neuron/<neuron_id>', methods=['GET'])
+def getNeuron(neuron_id):
+    item = Neuron.query.filter_by(id=neuron_id).first()
+    return jsonify(item.__repr__())
 @app.route('/create', methods=['POST'])
 def create_team():
     data = request.get_json()
